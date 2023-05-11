@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Student Report</title>
+	<style>
+		#report {
+			display: none;
+			margin-top: 50px;
+			padding: 20px;
+			border: 1px solid #ccc;
+			border-radius: 5px;
+			box-shadow: 0px 0px 5px 0px #ccc;
+		}
+
+		.error {
+			color: red;
+		}
+
+		.success {
+			color: green;
+		}
+	</style>
+	<script>
+		function validateForm() {
+			var studentId = document.forms["reportForm"]["student_id"].value;
+			var firstName = document.forms["reportForm"]["first_name"].value;
+			var lastName = document.forms["reportForm"]["last_name"].value;
+			var batch = document.forms["reportForm"]["batch"].value;
+			var englishMarks = document.forms["reportForm"]["english_marks"].value;
+			var hindiMarks = document.forms["reportForm"]["hindi_marks"].value;
+			var mathMarks = document.forms["reportForm"]["math_marks"].value;
+			var scienceMarks = document.forms["reportForm"]["science_marks"].value;
+			var historyMarks = document.forms["reportForm"]["history_marks"].value;
+			var geographyMarks = document.forms["reportForm"]["geography_marks"].value;
+
+			if (studentId == "" || firstName == "" || lastName == "" || batch == "" || englishMarks == "" || hindiMarks == "" || mathMarks == "" || scienceMarks == "" || historyMarks == "" || geographyMarks == "") {
+				alert("All fields are mandatory.");
+				return false;
+			}
+
+			if (isNaN(studentId)) {
+				alert("Student ID must be a number.");
+				return false;
+			}
+
+			if (!/^[a-zA-Z]+$/.test(firstName) || !/^[a-zA-Z]+$/.test(lastName)) {
+				alert("First name and last name must contain alphabets only.");
+				return false;
+			}
+
+			if (isNaN(englishMarks) || isNaN(hindiMarks) || isNaN(mathMarks) || isNaN(scienceMarks) || isNaN(historyMarks) || isNaN(geographyMarks)) {
+				alert("Marks for all subjects must be numbers.");
+				return false;
+			}
+
+			return true;
+		}
+	</script>
+</head>
+<body>
+	<form name="reportForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" onsubmit="return validateForm()">
+		<label for="student_id">Student ID:</label>
+		<input type="number" name="student_id" id="student_id" required>
+		<br><br>
+
+		<label for="first_name">First Name:</label>
+		<input type="text" name="first_name" id="first_name" required>
+		<br><br>
+
+		<label for="last_name">Last Name:</label>
+		<input type="text" name="last_name" id="last_name" required>
+		<br><br>
+
+		<label for="batch">Batch/Class:</label>
+		<input type="text" name="batch" id="batch" required>
+		<br><br>
+
+		<label for="email">Email:</label>
+		<input type="email" name="email" id="email">
+		<br><br>
+
+		<label for="english_marks">English Marks:</label>
+		<input type="number" name="english_marks" id="english_marks" required min="0" max="100">
+		
+		<br><br>
+
+		<label for="hindi_marks">Hindi Marks:</label>
+		<input type="number" name="hindi_marks" id="hindi_marks" required min="0" max="100">
+		<br><br>
+
+		<label for="math_marks">Math Marks:</label>
+		<input type="number" name="math_marks" id="math_marks" required min="0" max="100">
+		<br><br>
+
+		<label for="science_marks">Science Marks:</label>
+		<input type="number" name="science_marks" id="science_marks" required min="0" max="100">
+		<br><br>
+
+		<label for="history_marks">History Marks:</label>
+		<input type="number" name="history_marks" id="history_marks" required min="0" max="100">
+		<br><br>
+
+		<label for="geography_marks">Geography Marks:</label>
+		<input type="number" name="geography_marks" id="geography_marks" required min="0" max="100">
+		<br><br>
+
+		<label for="remarks">Remarks:</label>
+		<textarea name="remarks" id="remarks" rows="4" cols="50" maxlength="150"></textarea>
+		<br><br>
+
+		<input type="submit" name="submit" value="Generate Report">
+	</form>
+
+	<div id="StudentReport">
+		<h2>Student Report</h2>
+		<p><strong>Student ID:</strong> <?php echo $studentId; ?></p>
+		<p><strong>Name:</strong> <?php echo $firstName . " " . $lastName; ?></p>
+		<p><strong>Batch/Class:</strong> <?php echo $batch; ?></p>
+		<p><strong>Email:</strong> <?php echo $email; ?></p>
+		<table>
+			<tr>
+				<th>Subject</th>
+				<th>Marks</th>
+			</tr>
+			<tr>
+				<td>English</td>
+				<td><?php echo $englishMarks; ?></td>
+			</tr>
+			<tr>
+				<td>Hindi</td>
+				<td><?php echo $hindiMarks; ?></td>
+			</tr>
+			<tr>
+				<td>Math</td>
+				<td><?php echo $mathMarks; ?></td>
+			</tr>
+			<tr>
+				<td>Science</td>
+				<td><?php echo $scienceMarks; ?></td>
+			</tr>
+			<tr>
+				<td>History</td>
+				<td><?php echo $historyMarks; ?></td>
+			</tr>
+			<tr>
+				<td>Geography</td>
+				<td><?php echo $geographyMarks; ?></td>
+			</tr>
+		</table>
+		<p><strong>Remarks:</strong> <?php echo $remarks; ?></p>
+		<p><strong>Grade:</strong> <?php echo $grade; ?></p>
+	</div>
+</body>
+</html>
